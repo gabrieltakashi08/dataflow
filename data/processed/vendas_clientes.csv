@@ -1,0 +1,51 @@
+ID,cliente ID,data venda,valor total,ano,mes,mes_ano,nome,e-mail,cidade,data_cadastro
+1,7,2025-07-03,84.7,2025,7,2025-07,Juliana Ferreira,juliana.ferreira@email.com,Recife,2025-03-09
+2,12,2025-07-05,156.4,2025,7,2025-07,Pedro Carvalho,pedro.carvalho@email.com,Goiânia,2025-04-19
+3,3,2025-07-08,42.9,2025,7,2025-07,Camila Santos,camila.santos@email.com,Belo Horizonte,2025-02-03
+4,18,2025-07-11,237.8,2025,7,2025-07,Felipe Nunes,felipe.nunes@email.com,Sorocaba,2025-06-14
+5,5,2025-07-14,98.5,2025,7,2025-07,Mariana Souza,mariana.souza@email.com,Porto Alegre,2025-02-18
+6,14,2025-07-17,315.6,2025,7,2025-07,Matheus Ribeiro,matheus.ribeiro@email.com,Santo André,2025-05-05
+7,2,2025-07-20,67.9,2025,7,2025-07,Bruno Oliveira,bruno.oliveira@email.com,Rio de Janeiro,2025-01-22
+8,9,2025-07-23,189.3,2025,7,2025-07,Beatriz Rodrigues,beatriz.rodrigues@email.com,São José dos Campos,2025-03-25
+9,16,2025-07-26,53.4,2025,7,2025-07,André Barbosa,andre.barbosa@email.com,Brasília,2025-05-21
+10,1,2025-07-29,124.9,2025,7,2025-07,Ana Silva,ana.silva@email.com,São Paulo,2025-01-15
+11,20,2025-08-01,276.5,2025,8,2025-08,Thiago Castro,thiago.castro@email.com,Manaus,2025-07-01
+12,6,2025-08-04,91.8,2025,8,2025-08,Rafael Almeida,rafael.almeida@email.com,Salvador,2025-03-01
+13,11,2025-08-07,148.7,2025,8,2025-08,Isabela Lima,isabela.lima@email.com,Florianópolis,2025-04-10
+14,4,2025-08-10,63.9,2025,8,2025-08,Daniel Costa,daniel.costa@email.com,Curitiba,2025-02-11
+15,17,2025-08-13,204.6,2025,8,2025-08,Carolina Teixeira,carolina.teixeira@email.com,Joinville,2025-06-02
+16,8,2025-08-16,117.4,2025,8,2025-08,Gustavo Pereira,gustavo.pereira@email.com,Campinas,2025-03-17
+17,13,2025-08-19,352.9,2025,8,2025-08,Laura Gomes,laura.gomes@email.com,Niterói,2025-04-27
+18,19,2025-08-22,76.5,2025,8,2025-08,Renata Moreira,renata.moreira@email.com,Londrina,2025-06-23
+19,10,2025-08-25,165.8,2025,8,2025-08,Lucas Martins,lucas.martins@email.com,Fortaleza,2025-04-02
+20,15,2025-08-28,289.7,2025,8,2025-08,Beatriz Mendes,beatriz.mendes@email.com,Osasco,2025-05-13
+21,3,2025-09-01,57.9,2025,9,2025-09,Camila Santos,camila.santos@email.com,Belo Horizonte,2025-02-03
+22,7,2025-09-04,134.6,2025,9,2025-09,Juliana Ferreira,juliana.ferreira@email.com,Recife,2025-03-09
+23,12,2025-09-07,218.3,2025,9,2025-09,Pedro Carvalho,pedro.carvalho@email.com,Goiânia,2025-04-19
+24,5,2025-09-10,89.9,2025,9,2025-09,Mariana Souza,mariana.souza@email.com,Porto Alegre,2025-02-18
+25,18,2025-09-13,427.5,2025,9,2025-09,Felipe Nunes,felipe.nunes@email.com,Sorocaba,2025-06-14
+26,2,2025-09-16,73.4,2025,9,2025-09,Bruno Oliveira,bruno.oliveira@email.com,Rio de Janeiro,2025-01-22
+27,14,2025-09-19,196.8,2025,9,2025-09,Matheus Ribeiro,matheus.ribeiro@email.com,Santo André,2025-05-05
+28,9,2025-09-22,112.9,2025,9,2025-09,Beatriz Rodrigues,beatriz.rodrigues@email.com,São José dos Campos,2025-03-25
+29,16,2025-09-25,305.7,2025,9,2025-09,André Barbosa,andre.barbosa@email.com,Brasília,2025-05-21
+30,1,2025-09-28,48.6,2025,9,2025-09,Ana Silva,ana.silva@email.com,São Paulo,2025-01-15
+31,20,2025-10-02,178.4,2025,10,2025-10,Thiago Castro,thiago.castro@email.com,Manaus,2025-07-01
+32,6,2025-10-05,94.7,2025,10,2025-10,Rafael Almeida,rafael.almeida@email.com,Salvador,2025-03-01
+33,11,2025-10-08,267.9,2025,10,2025-10,Isabela Lima,isabela.lima@email.com,Florianópolis,2025-04-10
+34,4,2025-10-11,61.5,2025,10,2025-10,Daniel Costa,daniel.costa@email.com,Curitiba,2025-02-11
+35,17,2025-10-14,389.8,2025,10,2025-10,Carolina Teixeira,carolina.teixeira@email.com,Joinville,2025-06-02
+36,8,2025-10-17,143.2,2025,10,2025-10,Gustavo Pereira,gustavo.pereira@email.com,Campinas,2025-03-17
+37,13,2025-10-20,229.9,2025,10,2025-10,Laura Gomes,laura.gomes@email.com,Niterói,2025-04-27
+38,19,2025-10-23,82.4,2025,10,2025-10,Renata Moreira,renata.moreira@email.com,Londrina,2025-06-23
+39,10,2025-10-26,154.7,2025,10,2025-10,Lucas Martins,lucas.martins@email.com,Fortaleza,2025-04-02
+40,15,2025-10-29,318.6,2025,10,2025-10,Beatriz Mendes,beatriz.mendes@email.com,Osasco,2025-05-13
+41,3,2025-11-02,71.8,2025,11,2025-11,Camila Santos,camila.santos@email.com,Belo Horizonte,2025-02-03
+42,7,2025-11-05,246.5,2025,11,2025-11,Juliana Ferreira,juliana.ferreira@email.com,Recife,2025-03-09
+43,12,2025-11-08,137.9,2025,11,2025-11,Pedro Carvalho,pedro.carvalho@email.com,Goiânia,2025-04-19
+44,5,2025-11-11,104.3,2025,11,2025-11,Mariana Souza,mariana.souza@email.com,Porto Alegre,2025-02-18
+45,18,2025-11-14,512.7,2025,11,2025-11,Felipe Nunes,felipe.nunes@email.com,Sorocaba,2025-06-14
+46,2,2025-11-17,69.8,2025,11,2025-11,Bruno Oliveira,bruno.oliveira@email.com,Rio de Janeiro,2025-01-22
+47,14,2025-11-20,283.4,2025,11,2025-11,Matheus Ribeiro,matheus.ribeiro@email.com,Santo André,2025-05-05
+48,9,2025-11-23,196.9,2025,11,2025-11,Beatriz Rodrigues,beatriz.rodrigues@email.com,São José dos Campos,2025-03-25
+49,16,2025-11-26,341.6,2025,11,2025-11,André Barbosa,andre.barbosa@email.com,Brasília,2025-05-21
+50,1,2025-11-29,92.5,2025,11,2025-11,Ana Silva,ana.silva@email.com,São Paulo,2025-01-15

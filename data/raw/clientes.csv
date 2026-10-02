@@ -1,0 +1,21 @@
+ID,nome,e-mail,cidade,data_cadastro
+1,Ana Silva,ana.silva@email.com,São Paulo,2025-01-15
+2,Bruno Oliveira,bruno.oliveira@email.com,Rio de Janeiro,2025-01-22
+3,Camila Santos,camila.santos@email.com,Belo Horizonte,2025-02-03
+4,Daniel Costa,daniel.costa@email.com,Curitiba,2025-02-11
+5,Mariana Souza,mariana.souza@email.com,Porto Alegre,2025-02-18
+6,Rafael Almeida,rafael.almeida@email.com,Salvador,2025-03-01
+7,Juliana Ferreira,juliana.ferreira@email.com,Recife,2025-03-09
+8,Gustavo Pereira,gustavo.pereira@email.com,Campinas,2025-03-17
+9,Beatriz Rodrigues,beatriz.rodrigues@email.com,São José dos Campos,2025-03-25
+10,Lucas Martins,lucas.martins@email.com,Fortaleza,2025-04-02
+11,Isabela Lima,isabela.lima@email.com,Florianópolis,2025-04-10
+12,Pedro Carvalho,pedro.carvalho@email.com,Goiânia,2025-04-19
+13,Laura Gomes,laura.gomes@email.com,Niterói,2025-04-27
+14,Matheus Ribeiro,matheus.ribeiro@email.com,Santo André,2025-05-05
+15,Beatriz Mendes,beatriz.mendes@email.com,Osasco,2025-05-13
+16,André Barbosa,andre.barbosa@email.com,Brasília,2025-05-21
+17,Carolina Teixeira,carolina.teixeira@email.com,Joinville,2025-06-02
+18,Felipe Nunes,felipe.nunes@email.com,Sorocaba,2025-06-14
+19,Renata Moreira,renata.moreira@email.com,Londrina,2025-06-23
+20,Thiago Castro,thiago.castro@email.com,Manaus,2025-07-01

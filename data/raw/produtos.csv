@@ -1,0 +1,31 @@
+ID,nome,categoria,preço,fornecedor ID
+1,Arroz Tipo 1 5kg,Alimentos,28.90,1
+2,Feijão Carioca 1kg,Alimentos,8.49,2
+3,Açúcar Refinado 1kg,Alimentos,4.79,3
+4,Café Torrado e Moído 500g,Bebidas,18.90,4
+5,Óleo de Soja 900ml,Alimentos,6.99,5
+6,Macarrão Espaguete 500g,Alimentos,5.49,6
+7,Leite Integral 1L,Bebidas,5.89,7
+8,Biscoito Recheado 140g,Alimentos,3.99,8
+9,Achocolatado em Pó 400g,Alimentos,9.90,9
+10,Farinha de Trigo 1kg,Alimentos,6.49,10
+11,Detergente Líquido 500ml,Limpeza,2.79,1
+12,Sabão em Pó 1kg,Limpeza,12.90,2
+13,Amaciante 2L,Limpeza,9.99,3
+14,Desinfetante 500ml,Limpeza,4.49,4
+15,Esponja Multiuso,Limpeza,3.29,5
+16,Papel Higiênico 12 Rolos,Higiene,17.90,6
+17,Creme Dental 90g,Higiene,5.99,7
+18,Sabonete 90g,Higiene,2.49,8
+19,Shampoo 350ml,Higiene,14.90,9
+20,Condicionador 350ml,Higiene,15.90,10
+21,"Água Mineral 1,5L",Bebidas,3.49,1
+22,Refrigerante Cola 2L,Bebidas,9.49,2
+23,Suco de Laranja 1L,Bebidas,8.90,3
+24,Chocolate ao Leite 90g,Doces,6.99,4
+25,Barra de Cereal 25g,Doces,2.99,5
+26,Leite Condensado 395g,Alimentos,7.49,6
+27,Milho Verde 170g,Alimentos,4.29,7
+28,Atum em Lata 170g,Alimentos,8.99,8
+29,Maionese 500g,Alimentos,9.90,9
+30,Ketchup 400g,Alimentos,7.90,10
