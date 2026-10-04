@@ -9,6 +9,21 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: dataflow_user
+          POSTGRES_PASSWORD: dataflow_ci
+          POSTGRES_DB: dataflow
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U dataflow_user -d dataflow"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
       - name: Baixar código
         uses: actions/checkout@v4
@@ -21,9 +36,17 @@ jobs:
       - name: Instalar dependências
         run: |
           python -m pip install --upgrade pip
-          python -m pip install pandas pytest matplotlib
+          python -m pip install pandas pytest matplotlib psycopg2-binary
+
+      - name: Criar tabelas PostgreSQL
+        env:
+          PGPASSWORD: dataflow_ci
+        run: |
+          psql -h localhost -U dataflow_user -d dataflow -f sql/schema.sql
 
       - name: Executar pipeline
+        env:
+          DATAFLOW_DB_PASSWORD: dataflow_ci
         run: python -m src.pipeline
 
       - name: Executar testes
