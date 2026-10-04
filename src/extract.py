@@ -26,6 +26,6 @@ def extrair_dados():
         "itens_venda": itens_venda,
         "estoque": estoque,
     }
-dados = extrair_dados()
+
 
 
