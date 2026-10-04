@@ -1,334 +1,314 @@
 # DataFlow — Enterprise Sales Data Platform
 
-Pipeline de dados desenvolvido em Python para extração, transformação, validação, análise e visualização de dados de vendas.
+Pipeline de dados desenvolvido em Python para extração, transformação, validação, armazenamento, análise e visualização de dados de vendas.
+
+O projeto foi desenvolvido com foco em práticas de Engenharia de Dados, incluindo modularização, qualidade de dados, SQL analítico, PostgreSQL, testes automatizados e integração contínua.
 
 ## Objetivo
 
-O DataFlow demonstra um fluxo completo de dados, desde dados brutos até datasets analíticos, indicadores de negócio e visualizações.
+O DataFlow simula uma plataforma de dados de vendas, partindo de arquivos CSV brutos e produzindo dados processados, datasets analíticos, indicadores de negócio e visualizações.
 
-O projeto foi estruturado com foco em práticas de Engenharia de Dados e Analytics, incluindo modularização, validação de qualidade, testes automatizados e execução integrada por pipeline.
+O pipeline integra as principais etapas:
+
+CSV Brutos → Extract → Transform → Validação → PostgreSQL → Análise SQL/Python → Datasets Analíticos → Dashboard
+
+O projeto também possui CI com GitHub Actions para execução automatizada do pipeline e dos testes.
 
 ## Arquitetura
 
-```text
-Dados Brutos
-     ↓
-Extract
-     ↓
-Transform
-     ↓
-Validação
-     ↓
-Analysis
-     ↓
-Datasets Analíticos
-     ↓
+data/raw/
+    ↓
+src/extract.py
+    ↓
+src/transform.py
+    ↓
+src/validacao.py
+    ↓
+PostgreSQL
+    ↓
+src/analise.py
+    ↓
+data/analytics/
+    ↓
 Dashboard / Visualizações
-```
 
 ## Estrutura do Projeto
 
-```text
 dataflow/
-│
 ├── data/
 │   ├── raw/
 │   ├── processed/
 │   └── analytics/
-│
 ├── database/
 │   └── vendas.db
-│
+├── sql/
+│   └── schema.sql
 ├── src/
 │   ├── __init__.py
 │   ├── extract.py
 │   ├── transform.py
 │   ├── validacao.py
 │   ├── analise.py
+│   ├── load_postgres.py
 │   ├── pipeline.py
-│   │
 │   ├── dashboard/
 │   │   └── dashboard.py
-│   │
 │   └── visualizacoes/
 │       ├── __init__.py
 │       └── graficos.py
-│
 ├── tests/
 │   ├── __init__.py
 │   └── test_data_quality.py
-│
-├── sql/
-│
+├── .github/
+│   └── workflows/
+│       └── dataflow.yml
 ├── .gitignore
+├── requirements.txt
 └── README.md
-```
 
 ## Pipeline
 
 ### 1. Extract
 
-Leitura dos dados brutos:
+Leitura dos dados brutos utilizando Pandas:
 
-* Clientes
-* Fornecedores
-* Produtos
-* Vendas
-* Itens de venda
-* Estoque
-
-Os dados são carregados utilizando Pandas.
+- Clientes
+- Fornecedores
+- Produtos
+- Vendas
+- Itens de venda
+- Estoque
 
 ### 2. Transform
 
 Principais transformações:
 
-* Conversão de datas
-* Criação de ano e mês
-* Criação do período mensal
-* Tratamento de valores numéricos
-* Integração entre vendas e clientes
-* Cálculo de métricas de negócio
-* Geração de dados processados
-* Geração de visualizações
-
-O dataset integrado `vendas_clientes.csv` possui 50 registros e 11 colunas.
+- Conversão e tratamento de datas
+- Criação de ano, mês e período mensal
+- Tratamento de valores numéricos
+- Integração entre vendas e clientes
+- Geração do dataset vendas_clientes.csv
+- Preparação dos dados para análise
 
 ### 3. Validação
 
-O pipeline possui validações automatizadas para:
+O pipeline executa validações de qualidade antes das etapas analíticas:
 
-* Colunas obrigatórias
-* Valores nulos
-* Registros duplicados
-* Valores de venda inválidos
-* Datas inválidas
-* IDs de venda
-* IDs de cliente
+- Colunas obrigatórias
+- Valores nulos
+- Registros duplicados
+- Valores de venda inválidos
+- Datas inválidas
+- IDs de venda
+- IDs de cliente
 
-### 4. Analysis
+### 4. PostgreSQL
 
-São gerados datasets analíticos para diferentes dimensões do negócio.
+Os dados brutos são carregados em um banco PostgreSQL utilizando psycopg2.
+
+O modelo possui seis tabelas:
+
+- clientes
+- fornecedores
+- produtos
+- vendas
+- itens_venda
+- estoque
+
+As tabelas utilizam chaves primárias, chaves estrangeiras e restrições de integridade.
+
+Também foram utilizados índices em colunas relacionadas a chaves estrangeiras e consultas analíticas.
+
+### 5. Análise
+
+O projeto gera datasets analíticos para diferentes dimensões do negócio.
 
 #### Clientes
 
-* Faturamento por cliente
-* Quantidade de compras
-* Ticket médio
-* Participação no faturamento
-* Top clientes
-* Concentração de faturamento
+- Faturamento por cliente
+- Quantidade de compras
+- Ticket médio
+- Participação no faturamento
+- Ranking de clientes
 
 #### Vendas
 
-* Faturamento total
-* Quantidade de vendas
-* Maior venda
-* Menor venda
-* Mediana
-* Desvio padrão
-* Ticket médio
+- Faturamento total
+- Quantidade de vendas
+- Maior venda
+- Menor venda
+- Mediana
+- Desvio padrão
+- Ticket médio
 
 #### Análise temporal
 
-* Faturamento mensal
-* Crescimento mensal
-* Crescimento entre períodos
-* Faturamento acumulado
-* Quantidade de vendas por mês
-* Ticket médio mensal
+- Faturamento mensal
+- Crescimento mensal
+- Faturamento acumulado
+- Quantidade de vendas por mês
+- Ticket médio mensal
 
 #### Geografia
 
-* Faturamento por cidade
-* Quantidade de vendas por cidade
-* Ticket médio por cidade
-* Participação das cidades no faturamento
+- Faturamento por cidade
+- Quantidade de vendas por cidade
+- Ticket médio por cidade
+- Participação das cidades no faturamento
 
-### 5. Dashboard e Visualizações
+#### Produtos e categorias
 
-O projeto gera visualizações utilizando Matplotlib:
+- Faturamento por produto
+- Produtos mais vendidos
+- Faturamento por categoria
+- Ranking de produtos por categoria
+- Produto campeão por categoria
 
-* Evolução do faturamento mensal
-* Top 10 clientes
-* Top 10 cidades
-* Ticket médio mensal
-* Faturamento mensal
-* Faturamento por cidade
-* Ticket médio por cidade
+## SQL Analytics
 
-## Datasets Gerados
+A camada PostgreSQL também foi utilizada para consultas analíticas, incluindo:
 
-### Dados processados
+- JOIN
+- GROUP BY
+- CTEs
+- Funções de janela
+- RANK()
+- ROW_NUMBER()
+- LAG()
+- Agregações
+- Análise temporal
+- Análise por categoria
+- Análise de estoque
 
-```text
-data/processed/vendas_clientes.csv
-```
+Também foram realizados testes com EXPLAIN ANALYZE e criação de índices para avaliar o comportamento do PostgreSQL.
 
-### Datasets analíticos
+## Dashboard e Visualizações
 
-```text
-data/analytics/clientes_analytics.csv
-data/analytics/mensal_analytics.csv
-data/analytics/cidade_analytics.csv
-data/analytics/kpis.csv
-```
+As visualizações são geradas utilizando Matplotlib:
 
-### Visualizações
-
-```text
-data/processed/faturamento_mensal.png
-data/processed/faturamento_cidade.png
-data/processed/ticket_medio_cidade.png
-
-data/analytics/evolucao_faturamento.png
-data/analytics/top_clientes.png
-data/analytics/top_cidades.png
-data/analytics/ticket_medio_mensal.png
-```
+- Evolução do faturamento mensal
+- Top 10 clientes
+- Top 10 cidades
+- Ticket médio mensal
+- Faturamento mensal
+- Faturamento por cidade
+- Ticket médio por cidade
 
 ## Indicadores Atuais
 
-Com o dataset utilizado atualmente:
+Dataset atual:
 
-* 50 vendas
-* 20 clientes
-* 20 cidades
-* R$ 8.803,30 de faturamento total
-* R$ 176,07 de ticket médio
-* R$ 512,70 de maior venda
-* R$ 42,90 de menor venda
-* R$ 145,95 de mediana das vendas
-* R$ 111,68 de desvio padrão
-* 50,02% de crescimento entre o primeiro e o último mês analisado
-* 44,04% do faturamento concentrado nos 5 maiores clientes
+- 50 vendas
+- 20 clientes
+- 20 cidades
+- R$ 8.803,30 de faturamento total
+- R$ 176,07 de ticket médio
+- R$ 512,70 de maior venda
+- R$ 42,90 de menor venda
+- R$ 145,95 de mediana
+- R$ 111,68 de desvio padrão
+- 50,02% de crescimento entre o primeiro e o último mês analisado
+- 44,04% do faturamento concentrado nos 5 maiores clientes
 
-## Qualidade dos Dados
+## Qualidade e Testes
 
-O projeto possui validações de qualidade e testes automatizados utilizando Pytest.
-
-Resultado atual:
-
-```text
-8 passed
-```
+O projeto utiliza Pytest para testes automatizados de qualidade dos dados.
 
 Os testes verificam:
 
-* Existência dos arquivos processados
-* Ausência de valores nulos
-* Ausência de registros duplicados
-* Quantidade esperada de vendas
-* Valores de venda positivos
-* Existência dos KPIs
-* Existência dos datasets analíticos
-* Execução da validação completa do dataset
+- Existência dos arquivos processados
+- Ausência de valores nulos
+- Ausência de registros duplicados
+- Quantidade esperada de vendas
+- Valores de venda positivos
+- Existência dos KPIs
+- Existência dos datasets analíticos
+- Execução da validação completa do dataset
+
+Resultado atual:
+
+8 passed
+
+## Integração Contínua
+
+O projeto utiliza GitHub Actions para automatizar a execução do pipeline e dos testes.
+
+O workflow realiza:
+
+1. Checkout do código
+2. Configuração do Python 3.11
+3. Instalação das dependências
+4. Inicialização do PostgreSQL
+5. Criação do schema
+6. Execução do pipeline
+7. Execução dos testes
 
 ## Tecnologias
 
-* Python
-* Pandas
-* Matplotlib
-* SQLite
-* SQL
-* Pytest
-* Git
+- Python 3.11
+- Pandas
+- Matplotlib
+- PostgreSQL
+- psycopg2
+- SQLite
+- SQL
+- Pytest
+- Git
+- GitHub Actions
 
-## Execução
+## Como Executar
 
-Clone o projeto e entre no diretório:
+Clone o repositório:
 
-```bash
+git clone git@github.com:gabrieltakashi08/dataflow.git
 cd dataflow
-```
 
-Ative o ambiente virtual:
+Crie e ative o ambiente virtual:
 
-```bash
+python3 -m venv .venv
 source .venv/bin/activate
-```
 
-Execute o pipeline completo:
+Instale as dependências:
 
-```bash
+pip install -r requirements.txt
+
+Configure a variável de ambiente utilizada pelo PostgreSQL:
+
+export DATAFLOW_DB_PASSWORD="sua_senha"
+
+Execute o pipeline:
+
 python -m src.pipeline
-```
 
-O pipeline executa automaticamente:
+Execute os testes:
 
-```text
-Extract
-   ↓
-Transform
-   ↓
-Validação
-   ↓
-Analysis
-   ↓
-Dashboard
-```
+python -m pytest -v
 
-Para executar os testes:
+## Resultados
 
-```bash
-pytest -q
-```
+O pipeline gera automaticamente:
 
-## Principais Componentes
+data/processed/
+- vendas_clientes.csv
+- faturamento_mensal.png
+- faturamento_cidade.png
+- ticket_medio_cidade.png
 
-### `src/extract.py`
-
-Responsável pela extração dos dados brutos e carregamento dos datasets.
-
-### `src/transform.py`
-
-Responsável pela transformação, integração e preparação dos dados.
-
-### `src/validacao.py`
-
-Responsável pelas validações de qualidade dos dados.
-
-### `src/analise.py`
-
-Responsável pela geração das análises e datasets analíticos.
-
-### `src/dashboard/dashboard.py`
-
-Responsável pela geração das visualizações analíticas.
-
-### `src/pipeline.py`
-
-Responsável pela execução integrada de todo o fluxo de processamento.
-
-### `tests/`
-
-Contém os testes automatizados de qualidade e integridade dos dados.
-
-## Controle de Versão
-
-O projeto utiliza Git para controle de versão e organização das etapas de desenvolvimento.
-
-Principais etapas já implementadas:
-
-* Estrutura inicial do projeto
-* Pipeline de transformação
-* Modularização da extração
-* Validação automatizada
-* Testes de qualidade
-* Integração do pipeline
-* Integração da análise
-* Integração do dashboard
+data/analytics/
+- clientes_analytics.csv
+- mensal_analytics.csv
+- cidade_analytics.csv
+- kpis.csv
+- evolucao_faturamento.png
+- top_clientes.png
+- top_cidades.png
+- ticket_medio_mensal.png
 
 ## Próximos Passos
 
-* Publicação no GitHub
-* Integração contínua com GitHub Actions
-* Migração do banco para PostgreSQL
-* Dashboard interativo
-* Orquestração do pipeline
-* Expansão da cobertura de testes
-* Documentação técnica
-* Melhorias de observabilidade e logging
-* Containerização com Docker
-* Evolução da arquitetura para um fluxo de dados mais próximo de um ambiente de produção
-
+- Dashboard interativo
+- Maior cobertura de testes
+- Melhorias de observabilidade e logging
+- Containerização com Docker
+- Orquestração do pipeline
+- Evolução da arquitetura para um ambiente mais próximo de produção
