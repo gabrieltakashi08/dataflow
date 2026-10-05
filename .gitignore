@@ -3,4 +3,14 @@ __pycache__/
 *.pyc
 .ipynb_checkpoints/
 .vscode/
+
+# Banco local / artefatos
 *.db
+
+# Variáveis de ambiente e credenciais
+.env
+.env.*
+!.env.example
+
+# Sistema operacional
+.DS_Store

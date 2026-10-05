@@ -1,314 +1,587 @@
 # DataFlow — Enterprise Sales Data Platform
 
-Pipeline de dados desenvolvido em Python para extração, transformação, validação, armazenamento, análise e visualização de dados de vendas.
+Plataforma de dados de vendas desenvolvida em Python, PostgreSQL, SQL analítico e Streamlit, com pipeline de **ETL, validação, análise, visualização e interpretação assistida por IA**.
 
-O projeto foi desenvolvido com foco em práticas de Engenharia de Dados, incluindo modularização, qualidade de dados, SQL analítico, PostgreSQL, testes automatizados e integração contínua.
+O DataFlow foi desenvolvido como projeto de portfólio com foco em Engenharia de Dados, Analytics Engineering, qualidade de dados e integração entre dados estruturados e inteligência artificial.
 
-## Objetivo
+---
 
-O DataFlow simula uma plataforma de dados de vendas, partindo de arquivos CSV brutos e produzindo dados processados, datasets analíticos, indicadores de negócio e visualizações.
+## Visão geral
 
-O pipeline integra as principais etapas:
+O DataFlow transforma dados comerciais brutos em informações analíticas e indicadores de negócio.
 
-CSV Brutos → Extract → Transform → Validação → PostgreSQL → Análise SQL/Python → Datasets Analíticos → Dashboard
+```text
+CSV / Dados Brutos
+        │
+        ▼
+     Extract
+        │
+        ▼
+    Transform
+        │
+        ▼
+    Validação
+        │
+        ▼
+    PostgreSQL
+        │
+        ├───────────────┐
+        ▼               ▼
+ Analytics Engine    Data Access
+        │               │
+        └───────┬───────┘
+                ▼
+        Dashboard Streamlit
+                │
+                ▼
+          AI Analyst
+```
 
-O projeto também possui CI com GitHub Actions para execução automatizada do pipeline e dos testes.
+O projeto combina:
+
+* ETL em Python;
+* PostgreSQL;
+* SQL analítico;
+* funções de janela;
+* CTEs;
+* análise temporal;
+* análise de clientes, produtos e estoque;
+* validação de qualidade de dados;
+* dashboard interativo;
+* AI Analyst baseado nos resultados calculados pelo Analytics Engine;
+* testes automatizados;
+* GitHub Actions.
+
+---
+
+## Principais funcionalidades
+
+### Pipeline de dados
+
+* Extração de dados CSV;
+* Transformação e padronização;
+* Validação de qualidade;
+* Carga no PostgreSQL;
+* geração de datasets analíticos;
+* execução reproduzível do pipeline.
+
+### Analytics Engine
+
+A camada analítica centraliza consultas SQL responsáveis por indicadores e análises como:
+
+* faturamento mensal;
+* crescimento mensal;
+* ranking de clientes;
+* Pareto de clientes;
+* ranking de produtos;
+* análise de estoque;
+* análise temporal;
+* análise por categoria;
+* análise por cliente;
+* contribuição das variações mensais.
+
+As consultas utilizam recursos do PostgreSQL como:
+
+* `JOIN`;
+* `GROUP BY`;
+* `CTE`;
+* `RANK()`;
+* `LAG()`;
+* funções de janela;
+* agregações;
+* `DATE_TRUNC`;
+* análise temporal.
+
+### Dashboard
+
+O projeto possui um dashboard interativo desenvolvido com Streamlit.
+
+O dashboard é dividido em:
+
+1. **Visão Geral**
+2. **Clientes**
+3. **Produtos**
+4. **Vendas**
+5. **Análises**
+6. **AI Analyst**
+
+A interface permite explorar os principais indicadores e análises da plataforma sem executar consultas SQL manualmente.
+
+### AI Analyst
+
+O DataFlow possui uma camada de inteligência artificial capaz de interpretar os resultados produzidos pelo Analytics Engine.
+
+O usuário pode fazer perguntas em linguagem natural, como:
+
+> Qual foi o mês de maior faturamento?
+
+ou:
+
+> Por que novembro teve faturamento maior que outubro?
+
+A IA recebe um contexto analítico estruturado produzido pelo próprio DataFlow.
+
+A arquitetura foi projetada para que a IA:
+
+* utilize somente dados fornecidos pelo Analytics Engine;
+* não execute SQL diretamente;
+* não invente métricas;
+* diferencie fatos observados de interpretações;
+* apresente valores absolutos e percentuais quando disponíveis;
+* declare quando uma informação não está disponível.
+
+Isso reduz o risco de respostas desconectadas dos dados reais da plataforma.
+
+---
 
 ## Arquitetura
 
+```text
 data/raw/
-    ↓
+    │
+    ▼
 src/extract.py
-    ↓
+    │
+    ▼
 src/transform.py
-    ↓
+    │
+    ▼
 src/validacao.py
-    ↓
+    │
+    ▼
+src/load_postgres.py
+    │
+    ▼
 PostgreSQL
-    ↓
-src/analise.py
-    ↓
-data/analytics/
-    ↓
-Dashboard / Visualizações
+    │
+    ▼
+src/analytics/
+    ├── queries.py
+    └── service.py
+    │
+    ├───────────────┐
+    ▼               ▼
+src/data/       src/ai/
+postgres.py     context.py
+                analyst.py
+                prompts.py
+    │               │
+    └───────┬───────┘
+            ▼
+src/dashboard/app.py
+            │
+            ▼
+       Streamlit
+```
 
-## Estrutura do Projeto
+---
 
+## Estrutura do projeto
+
+```text
 dataflow/
 ├── data/
 │   ├── raw/
 │   ├── processed/
 │   └── analytics/
+│
 ├── database/
 │   └── vendas.db
+│
 ├── sql/
 │   └── schema.sql
+│
 ├── src/
 │   ├── __init__.py
+│   ├── analise.py
 │   ├── extract.py
 │   ├── transform.py
 │   ├── validacao.py
-│   ├── analise.py
 │   ├── load_postgres.py
 │   ├── pipeline.py
+│   │
+│   ├── ai/
+│   │   ├── __init__.py
+│   │   ├── analyst.py
+│   │   ├── context.py
+│   │   └── prompts.py
+│   │
+│   ├── analytics/
+│   │   ├── __init__.py
+│   │   ├── queries.py
+│   │   └── service.py
+│   │
 │   ├── dashboard/
+│   │   ├── app.py
 │   │   └── dashboard.py
+│   │
+│   ├── data/
+│   │   └── postgres.py
+│   │
 │   └── visualizacoes/
 │       ├── __init__.py
 │       └── graficos.py
+│
 ├── tests/
 │   ├── __init__.py
 │   └── test_data_quality.py
+│
 ├── .github/
 │   └── workflows/
 │       └── dataflow.yml
+│
 ├── .gitignore
 ├── requirements.txt
 └── README.md
+```
 
-## Pipeline
+---
+
+## Pipeline de dados
 
 ### 1. Extract
 
-Leitura dos dados brutos utilizando Pandas:
+Os dados brutos são carregados a partir de arquivos CSV utilizando Pandas.
 
-- Clientes
-- Fornecedores
-- Produtos
-- Vendas
-- Itens de venda
-- Estoque
+Datasets:
+
+* clientes;
+* fornecedores;
+* produtos;
+* vendas;
+* itens de venda;
+* estoque.
 
 ### 2. Transform
 
-Principais transformações:
+O processo de transformação realiza operações como:
 
-- Conversão e tratamento de datas
-- Criação de ano, mês e período mensal
-- Tratamento de valores numéricos
-- Integração entre vendas e clientes
-- Geração do dataset vendas_clientes.csv
-- Preparação dos dados para análise
+* tratamento de datas;
+* criação de períodos temporais;
+* tratamento de valores numéricos;
+* integração entre entidades;
+* preparação dos datasets analíticos.
 
 ### 3. Validação
 
-O pipeline executa validações de qualidade antes das etapas analíticas:
+Antes das etapas analíticas, são realizadas verificações de qualidade, incluindo:
 
-- Colunas obrigatórias
-- Valores nulos
-- Registros duplicados
-- Valores de venda inválidos
-- Datas inválidas
-- IDs de venda
-- IDs de cliente
+* existência de colunas obrigatórias;
+* valores nulos;
+* registros duplicados;
+* valores de venda inválidos;
+* datas inválidas;
+* identificadores de vendas;
+* identificadores de clientes;
+* consistência dos datasets esperados.
 
-### 4. PostgreSQL
+### 4. Load
 
-Os dados brutos são carregados em um banco PostgreSQL utilizando psycopg2.
+Os dados são carregados para PostgreSQL utilizando `psycopg2`.
 
-O modelo possui seis tabelas:
+O banco possui as entidades:
 
-- clientes
-- fornecedores
-- produtos
-- vendas
-- itens_venda
-- estoque
+* `clientes`;
+* `fornecedores`;
+* `produtos`;
+* `vendas`;
+* `itens_venda`;
+* `estoque`.
 
-As tabelas utilizam chaves primárias, chaves estrangeiras e restrições de integridade.
+O PostgreSQL é a **fonte oficial utilizada pelo Analytics Engine**.
 
-Também foram utilizados índices em colunas relacionadas a chaves estrangeiras e consultas analíticas.
+---
 
-### 5. Análise
+## Analytics Engine
 
-O projeto gera datasets analíticos para diferentes dimensões do negócio.
+A camada `src/analytics/` separa a lógica de análise da interface do dashboard.
+
+### Consultas implementadas
+
+#### Faturamento
+
+* faturamento mensal;
+* quantidade de vendas;
+* ticket médio;
+* crescimento percentual;
+* variação absoluta.
 
 #### Clientes
 
-- Faturamento por cliente
-- Quantidade de compras
-- Ticket médio
-- Participação no faturamento
-- Ranking de clientes
+* ranking de clientes;
+* quantidade de compras;
+* ticket médio;
+* Pareto de faturamento;
+* análise mensal por cliente.
 
-#### Vendas
+#### Produtos
 
-- Faturamento total
-- Quantidade de vendas
-- Maior venda
-- Menor venda
-- Mediana
-- Desvio padrão
-- Ticket médio
+* ranking de produtos;
+* quantidade vendida;
+* análise de mix;
+* análise mensal por produto.
 
-#### Análise temporal
+#### Categorias
 
-- Faturamento mensal
-- Crescimento mensal
-- Faturamento acumulado
-- Quantidade de vendas por mês
-- Ticket médio mensal
+* quantidade vendida;
+* análise mensal;
+* composição do mix por categoria.
 
-#### Geografia
+#### Estoque
 
-- Faturamento por cidade
-- Quantidade de vendas por cidade
-- Ticket médio por cidade
-- Participação das cidades no faturamento
+* estoque atual;
+* estoque mínimo;
+* identificação de itens críticos.
 
-#### Produtos e categorias
+---
 
-- Faturamento por produto
-- Produtos mais vendidos
-- Faturamento por categoria
-- Ranking de produtos por categoria
-- Produto campeão por categoria
+## Qualidade e semântica dos dados
 
-## SQL Analytics
+Uma preocupação importante do projeto foi não assumir que diferentes fontes representam necessariamente a mesma métrica.
 
-A camada PostgreSQL também foi utilizada para consultas analíticas, incluindo:
+O **faturamento oficial** do DataFlow é calculado a partir de:
 
-- JOIN
-- GROUP BY
-- CTEs
-- Funções de janela
-- RANK()
-- ROW_NUMBER()
-- LAG()
-- Agregações
-- Análise temporal
-- Análise por categoria
-- Análise de estoque
+```sql
+vendas.valor_total
+```
 
-Também foram realizados testes com EXPLAIN ANALYZE e criação de índices para avaliar o comportamento do PostgreSQL.
+As informações de `itens_venda` são utilizadas principalmente para análise de:
 
-## Dashboard e Visualizações
+* quantidade vendida;
+* mix de produtos;
+* composição por categoria;
+* distribuição de itens.
 
-As visualizações são geradas utilizando Matplotlib:
+Os valores derivados de `quantidade × preco_uni` em `itens_venda` não são utilizados automaticamente como substitutos do faturamento oficial.
 
-- Evolução do faturamento mensal
-- Top 10 clientes
-- Top 10 cidades
-- Ticket médio mensal
-- Faturamento mensal
-- Faturamento por cidade
-- Ticket médio por cidade
+Essa separação evita atribuir ao nível de produto ou categoria uma contribuição de receita que não possa ser reconciliada com os valores oficiais das vendas.
 
-## Indicadores Atuais
+Essa abordagem também faz parte da camada de **Data Quality e Data Semantics** do projeto.
 
-Dataset atual:
+---
 
-- 50 vendas
-- 20 clientes
-- 20 cidades
-- R$ 8.803,30 de faturamento total
-- R$ 176,07 de ticket médio
-- R$ 512,70 de maior venda
-- R$ 42,90 de menor venda
-- R$ 145,95 de mediana
-- R$ 111,68 de desvio padrão
-- 50,02% de crescimento entre o primeiro e o último mês analisado
-- 44,04% do faturamento concentrado nos 5 maiores clientes
+## Indicadores do dataset
 
-## Qualidade e Testes
+O dataset atual contém:
 
-O projeto utiliza Pytest para testes automatizados de qualidade dos dados.
+| Indicador          |       Valor |
+| ------------------ | ----------: |
+| Vendas             |          50 |
+| Clientes           |          20 |
+| Faturamento total  | R$ 8.803,30 |
+| Ticket médio       |   R$ 176,07 |
+| Maior venda        |   R$ 512,70 |
+| Menor venda        |    R$ 42,90 |
+| Mediana das vendas |   R$ 145,95 |
+| Desvio padrão      |   R$ 111,68 |
 
-Os testes verificam:
+Faturamento mensal:
 
-- Existência dos arquivos processados
-- Ausência de valores nulos
-- Ausência de registros duplicados
-- Quantidade esperada de vendas
-- Valores de venda positivos
-- Existência dos KPIs
-- Existência dos datasets analíticos
-- Execução da validação completa do dataset
+| Mês           | Faturamento |
+| ------------- | ----------: |
+| Julho/2025    | R$ 1.371,40 |
+| Agosto/2025   | R$ 1.787,80 |
+| Setembro/2025 | R$ 1.665,60 |
+| Outubro/2025  | R$ 1.921,10 |
+| Novembro/2025 | R$ 2.057,40 |
 
-Resultado atual:
+---
 
-8 passed
+## Testes
 
-## Integração Contínua
+O projeto utiliza Pytest para validação automatizada.
 
-O projeto utiliza GitHub Actions para automatizar a execução do pipeline e dos testes.
+Entre as verificações realizadas estão:
+
+* existência dos datasets;
+* integridade dos dados;
+* ausência de valores nulos;
+* ausência de duplicidades;
+* quantidade esperada de vendas;
+* valores positivos;
+* existência dos KPIs;
+* existência dos datasets analíticos;
+* execução da validação completa.
+
+Os testes também são executados pelo workflow de CI configurado no GitHub Actions.
+
+---
+
+## Integração contínua
+
+O projeto possui GitHub Actions para automatizar etapas do processo de validação.
 
 O workflow realiza:
 
-1. Checkout do código
-2. Configuração do Python 3.11
-3. Instalação das dependências
-4. Inicialização do PostgreSQL
-5. Criação do schema
-6. Execução do pipeline
-7. Execução dos testes
+1. checkout do código;
+2. configuração do Python;
+3. instalação das dependências;
+4. configuração do PostgreSQL;
+5. criação do schema;
+6. execução do pipeline;
+7. execução dos testes.
+
+---
 
 ## Tecnologias
 
-- Python 3.11
-- Pandas
-- Matplotlib
-- PostgreSQL
-- psycopg2
-- SQLite
-- SQL
-- Pytest
-- Git
-- GitHub Actions
+### Linguagem
 
-## Como Executar
+* Python 3.11
 
-Clone o repositório:
+### Dados
 
+* PostgreSQL
+* SQL
+* Pandas
+* psycopg2
+* SQLite
+
+### Analytics
+
+* CTEs
+* Window Functions
+* `RANK()`
+* `LAG()`
+* `GROUP BY`
+* `JOIN`
+* agregações
+* análise temporal
+
+### Visualização
+
+* Streamlit
+* Matplotlib
+
+### Qualidade
+
+* Pytest
+* validações de dados
+* GitHub Actions
+
+### Inteligência Artificial
+
+* OpenAI API
+* arquitetura de contexto analítico
+* análise em linguagem natural
+
+### Versionamento
+
+* Git
+* GitHub
+
+---
+
+## Como executar
+
+### 1. Clonar o projeto
+
+```bash
 git clone git@github.com:gabrieltakashi08/dataflow.git
 cd dataflow
+```
 
-Crie e ative o ambiente virtual:
+### 2. Criar o ambiente virtual
 
+```bash
 python3 -m venv .venv
 source .venv/bin/activate
+```
 
-Instale as dependências:
+### 3. Instalar dependências
 
+```bash
 pip install -r requirements.txt
+```
 
-Configure a variável de ambiente utilizada pelo PostgreSQL:
+### 4. Configurar PostgreSQL
 
+Defina a senha do usuário PostgreSQL utilizado pelo projeto:
+
+```bash
 export DATAFLOW_DB_PASSWORD="sua_senha"
+```
 
-Execute o pipeline:
+### 5. Configurar a IA
 
+Para utilizar o AI Analyst:
+
+```bash
+export OPENAI_API_KEY="sua_chave"
+```
+
+As credenciais **não devem ser armazenadas no código-fonte ou commitadas no Git**.
+
+### 6. Executar o pipeline
+
+```bash
 python -m src.pipeline
+```
 
-Execute os testes:
+### 7. Executar os testes
 
+```bash
 python -m pytest -v
+```
 
-## Resultados
+### 8. Executar o dashboard
 
-O pipeline gera automaticamente:
+```bash
+export PYTHONPATH="$PWD"
+streamlit run src/dashboard/app.py
+```
 
-data/processed/
-- vendas_clientes.csv
-- faturamento_mensal.png
-- faturamento_cidade.png
-- ticket_medio_cidade.png
+O Streamlit disponibilizará a aplicação localmente.
 
-data/analytics/
-- clientes_analytics.csv
-- mensal_analytics.csv
-- cidade_analytics.csv
-- kpis.csv
-- evolucao_faturamento.png
-- top_clientes.png
-- top_cidades.png
-- ticket_medio_mensal.png
+---
 
-## Próximos Passos
+## Segurança
 
-- Dashboard interativo
-- Maior cobertura de testes
-- Melhorias de observabilidade e logging
-- Containerização com Docker
-- Orquestração do pipeline
-- Evolução da arquitetura para um ambiente mais próximo de produção
+Credenciais e informações sensíveis são tratadas por variáveis de ambiente.
+
+O projeto não deve armazenar:
+
+* API keys;
+* senhas;
+* tokens;
+* arquivos `.env`;
+* credenciais de banco.
+
+Esses arquivos e variáveis são protegidos pelo `.gitignore` e pela configuração de ambiente.
+
+---
+
+## Próximas evoluções
+
+Possíveis evoluções técnicas do projeto:
+
+* maior cobertura de testes;
+* observabilidade e logging;
+* métricas de performance;
+* otimização adicional das consultas SQL;
+* containerização com Docker;
+* orquestração do pipeline;
+* camada de cache;
+* autenticação do dashboard;
+* monitoramento de qualidade dos dados;
+* evolução para uma arquitetura próxima de um ambiente produtivo.
+
+---
+
+## Objetivo do projeto
+
+O DataFlow foi desenvolvido como um projeto prático de Engenharia de Dados para demonstrar a integração entre:
+
+```text
+Data Engineering
+       +
+SQL Analytics
+       +
+Data Quality
+       +
+Visualization
+       +
+Artificial Intelligence
+```
+
+O objetivo não é apenas gerar gráficos, mas construir uma pequena plataforma de dados capaz de **extrair, validar, armazenar, consultar, analisar e interpretar informações de negócio de forma estruturada e reproduzível**.
